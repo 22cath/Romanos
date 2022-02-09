@@ -1,4 +1,4 @@
-lass RomanError(Exception):
+class RomanError(Exception):
     pass
 
 valores_romanos = {
