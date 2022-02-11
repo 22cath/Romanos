@@ -1,5 +1,8 @@
+# comentario para el siguiente commit
+
 class RomanError(Exception):
     pass
+
 
 valores_romanos = {
     1: 'I',
@@ -31,11 +34,8 @@ def valida_numero(n):
     if not isinstance(n, int):
         raise TypeError(f"{n} debe ser de tipo int")
 
-    if n <= 0:
-        raise ValueError(f"{n} debe ser un entero positivo")
-
-    if n < 1 or n > 4000:
-        raise ValueError("No se soportan números menores de 1 o mayores de 4000")
+    if n <= 0 or n >4000 :
+        raise ValueError(f"{n} No se soportan números menores de 1 o mayores de 4000")
 
 
 def arabigo_a_romano(n):
@@ -57,8 +57,7 @@ def arabigo_a_romano(n):
 """
 def valida_repes(cadena):
     if 'IIII' in cadena or \
-       'VV' in ... 
-       por revisar todavia
+       'VV' in 
 """
 
 def romano_a_arabigo(cadena):
@@ -68,10 +67,18 @@ def romano_a_arabigo(cadena):
     for ix in range(len(cadena) - 1):
         letra = cadena[ix]
         siguiente = cadena[ix + 1]
+        try: 
+            valor = simbolos_romanos[letra]
+            siguiente_valor = simbolos_romanos[siguiente]
+        except KeyError:
+            raise RomanError(f"Error de síntaxis")
+
 
         #comprobar repeticiones
         if letra == siguiente:
             cont_repeticiones += 1
+        elif simbolos_romanos[letra] < simbolos_romanos[siguiente] and cont_repeticiones > 0:
+            raise RomanError(f"Error de sintaxis. Repeticiones antes de resta")
         else:
             cont_repeticiones = 0
 
@@ -90,6 +97,13 @@ def romano_a_arabigo(cadena):
         else:
             if letra in 'VLD':
                 raise RomanError(f"Error de sintaxis. {letra} no puede restar")
+            elif letra == "I" and siguiente not in ('XV'):
+                raise RomanError(f"Error de sintaxis {letra}{siguiente} no permitido")
+            elif letra == "X" and siguiente not in ('LC'):
+                raise RomanError(f"Error de sintaxis {letra}{siguiente} no permitido")
+            elif letra == "C" and siguiente not in ('DM'):
+                raise RomanError(f"Error de sintaxis {letra}{siguiente} no permitido")
+
             resultado -= simbolos_romanos[letra]
 
     resultado += simbolos_romanos[cadena[-1]]

@@ -50,6 +50,16 @@ class RomanosFuncionesAArabigoTest(unittest.TestCase):
         with self.assertRaises(RomanError):
             romano_a_arabigo('XXL')
 
+        self.assertEqual(romano_a_arabigo('XXIII'), 23)
+
+    def test_romano_a_arabigo_restas_prohibidas_si_separacion_alta(self):
+        with self.assertRaises(RomanError):
+            romano_a_arabigo('XM')
+
+    def test_romano_a_arabigo_simbolos_incorrectos(self):
+        pass
+
+
 
 """
 from romanas import arabigo_a_romano, romano_a_arabigo
